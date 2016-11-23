@@ -1,0 +1,13 @@
+global:
+  listen:
+    - address: eth1:9811/tcp
+    - address: eth1:9810/udp
+  timeout: 60
+service:
+  - id: 1
+    module: ../client/lib/Tesla.so
+    procnum: 4
+    conf: ../client/conf/Tesla.conf
+    log:
+      level: 3
+    shmsize: 16

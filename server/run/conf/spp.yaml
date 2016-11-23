@@ -1,0 +1,5 @@
+global:
+  type: spp
+  report: on
+  coredump: on
+  restart: on

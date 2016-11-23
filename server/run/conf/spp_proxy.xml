@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<proxy>
+    <acceptor timeout="60">
+        <entry type="tcp" if="eth1" port="9811" />
+        <entry type="udp" if="eth1" port="9810" />
+    </acceptor>
+    <connector>
+        <entry groupid="1" send_size="16" recv_size="16" />
+    </connector>
+    <log level="3" />
+    <module bin="../client/lib/Tesla.so" etc="../client/conf/Tesla.conf" />
+    <result bin="" />
+    <exception monitor="1" />
+</proxy>
