@@ -3,7 +3,7 @@ PLATFORM=linux
 
 EXT_LIB_ROOT=${BUILD_ROOT_PATH}/extlib
 #include begin
-INC_MYSQL = -I$(EXT_LIB_ROOT)/mysql/include
+INC_MYSQL = -I$(EXT_LIB_ROOT)/mysql5.0/include
 #INC_LIBEVENT= -I$(EXT_LIB_ROOT)/libevent/include/
 #INC_PROBUFEVENT= -I$(EXT_LIB_ROOT)/protobuf/include/
 INC_JCE = -I$(EXT_LIB_ROOT)/jce
@@ -13,7 +13,7 @@ INC_EXT =  $(INC_LIBEVENT) $(INC_PROBUFEVENT) $(INC_JCE) $(INC_SPP)
 #include end
 
 #lib begin
-LIB_MYSQL = -L$(EXT_LIB_ROOT)/mysql/lib -lmysqlclient -lz
+LIB_MYSQL = -L$(EXT_LIB_ROOT)/mysql5.0/lib -lmysqlclient -lz
 #ifeq ($(PLATFORM),macosx)
 #	LIB_EVENT= -L$(EXT_LIB_ROOT)/libevent/lib/ -levent 
 #else #linux
