@@ -13,7 +13,7 @@
 #include "db_connect.h"
 
 using namespace srpc;
-
+#define CONF_PATH "../etc/config.ini"
 /**
  * @brief 业务模块初始化插件接口(proxy,worker)
  * @param conf -业务配置文件信息
@@ -38,11 +38,11 @@ extern "C" int spp_handle_init(void* arg1, void* arg2)
         }
 		
 		//读取配置
-		const char * filepath = (const char *)arg1;
-		if (!GCONF->InitConfig(filepath))
+		//const char * filepath = (const char *)arg1;
+		if (!GCONF->InitConfig(CONF_PATH))
 		{
 			
-            NGLOG_ERROR("service config init failed ");
+            		NGLOG_ERROR("service config init failed file:%s",CONF_PATH);
 			return -2;
 		}
 		

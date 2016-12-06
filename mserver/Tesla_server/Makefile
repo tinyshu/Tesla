@@ -8,7 +8,7 @@ DEBUG= -g
 
 INCCOMM=-I$(FRAME_INC_PATH) -I$(PB_INC)  -I$(FRAME_INC_PATH)/spp_incl/ -I$(FRAME_INC_PATH)/sync_incl -I$(FRAME_INC_PATH)/internal $(FRAME_INC_PATH)/r3c -I$(FRAME_INC_PATH)/hiredis -I$(FRAME_INC_PATH)/mysqlclient -I$(FRAME_INC_PATH)/config
 #LIBCOMM= -L../lib $(shell ls ../lib | egrep "^lib" | egrep -v "libmt.a|libnlbapi.a|libpb32.a|libpb64.a|librpc_clt_comm.a" | cut -b 4- | cut -d . -f 1 | awk '{print "-l"$$0}')
-LIBCOMM= -L../lib $(shell ls ../lib | egrep "^lib" | egrep -v "libmt.a|libnlbapi.a|libpb32.a|libpb64.a|librpc_clt_comm.a|libhiredis.a|libmysqlclient.a|libr3c.a|libreadconf.a" | cut -b 4- | cut -d . -f 1 | awk '{print "-l"$$0}') -lmysqlclient -lr3c -lhiredis
+LIBCOMM= -L../lib $(shell ls ../lib | egrep "^lib" | egrep -v "libmt.a|libnlbapi.a|libpb32.a|libpb64.a|librpc_clt_comm.a|libhiredis.a|libmysqlclient.a|libr3c.a|libreadconf.a" | cut -b 4- | cut -d . -f 1 | awk '{print "-l"$$0}') -lmysqlclient -lr3c -lhiredis -lreadconf
 BINARY = ../bin/Tesla.so
 
 ### rules
@@ -87,7 +87,7 @@ CRESET =  ;echo -ne \\e[m; test -s $@
 	@$(CC) $(C_ARGS) -c -o $@ ` echo $< | sed 's/.proto$$/.pb.cc/g' ` $(INCCOMM) $(CRESET)
 
 clean:
-	#@echo "obj: $(OBJS) pb: $(ALLPROTOBUF) pbh: $(ALLPROTOBUF_H) pbobj: $(ALLPROTOBUF_OBJ)"
+	@#@echo "obj: $(OBJS) pb: $(ALLPROTOBUF) pbh: $(ALLPROTOBUF_H) pbobj: $(ALLPROTOBUF_OBJ)"
 	rm -f $(BINARY) $(OBJS) 
 
 proto: $(ALLPROTOBUF_H) 
