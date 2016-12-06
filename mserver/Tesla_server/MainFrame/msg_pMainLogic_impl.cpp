@@ -14,6 +14,7 @@
 #include "db_inf.h"
 #include "globalconfig.h"
 
+/*
 extern "C"
 {
 struct routeid {
@@ -25,6 +26,7 @@ struct routeid {
 int32_t getroutebyname(const char *name, struct routeid *);
 
 };
+*/
 
 //可以把这些封装在一个统一的文件
 void QueryOrder(bool& bExists)
