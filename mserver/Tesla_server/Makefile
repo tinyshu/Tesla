@@ -2,18 +2,19 @@
 PB_INC=../include/pb
 PROTOC=../lib/protoc
 FRAME_INC_PATH=../include
+SO_PATH=/msec/p2p_cpp/MainLogic/bin/msec.so
 
 DEBUG= -g
 
-INCCOMM=-I$(FRAME_INC_PATH) -I$(PB_INC)  -I$(FRAME_INC_PATH)/spp_incl/ -I$(FRAME_INC_PATH)/sync_incl -I$(FRAME_INC_PATH)/internal $(FRAME_INC_PATH)/r3c -I$(FRAME_INC_PATH)/hiredis -I$(FRAME_INC_PATH)/mysqlclient 
+INCCOMM=-I$(FRAME_INC_PATH) -I$(PB_INC)  -I$(FRAME_INC_PATH)/spp_incl/ -I$(FRAME_INC_PATH)/sync_incl -I$(FRAME_INC_PATH)/internal $(FRAME_INC_PATH)/r3c -I$(FRAME_INC_PATH)/hiredis -I$(FRAME_INC_PATH)/mysqlclient -I$(FRAME_INC_PATH)/config
 #LIBCOMM= -L../lib $(shell ls ../lib | egrep "^lib" | egrep -v "libmt.a|libnlbapi.a|libpb32.a|libpb64.a|librpc_clt_comm.a" | cut -b 4- | cut -d . -f 1 | awk '{print "-l"$$0}')
-LIBCOMM= -L../lib $(shell ls ../lib | egrep "^lib" | egrep -v "libmt.a|libnlbapi.a|libpb32.a|libpb64.a|librpc_clt_comm.a|libhiredis.a|libmysqlclient.a|libr3c.a" | cut -b 4- | cut -d . -f 1 | awk '{print "-l"$$0}') -lmysqlclient -lr3c -lhiredis
+LIBCOMM= -L../lib $(shell ls ../lib | egrep "^lib" | egrep -v "libmt.a|libnlbapi.a|libpb32.a|libpb64.a|librpc_clt_comm.a|libhiredis.a|libmysqlclient.a|libr3c.a|libreadconf.a" | cut -b 4- | cut -d . -f 1 | awk '{print "-l"$$0}') -lmysqlclient -lr3c -lhiredis
 BINARY = ../bin/Tesla.so
 
 ### rules
 ALLPROTOBUF=$(wildcard ./protocal/*.proto)
 ALLPROTOBUF_H=$(patsubst %.proto,%.pb.h,$(ALLPROTOBUF))
-ALLPROTOBUF_OBJ=$(patsubst %.proto,%.pb.o,$(ALLPROTOBUF))
+#ALLPROTOBUF_OBJ=$(patsubst %.proto,%.pb.o,$(ALLPROTOBUF))
 
 
 EXCLUDE_DIRS := comm.tiny
@@ -23,7 +24,8 @@ DIRS := $(filter-out $(EXCLUDE_DIRS),$(DIRS))
 
 INCCOMM += $(foreach it, $(DIRS), -I./$(it))
 SRCS := $(foreach it,$(DIRS),$(wildcard $(it)/*.cpp)) 
-OBJS =$(patsubst %.cpp,%.o,$(SRCS)) $(ALLPROTOBUF_OBJ)
+SRCS += $(foreach it,$(DIRS),$(wildcard $(it)/*.cc)) 
+OBJS =$(patsubst %.cpp,%.o,$(SRCS)) 
 
 # Comment the following line if you are not using the gnu c compiler
 C_ARGS = -Wall -g -fPIC -rdynamic
@@ -83,7 +85,7 @@ CRESET =  ;echo -ne \\e[m; test -s $@
 	@$(CC) $(C_ARGS) -c -o $@ ` echo $< | sed 's/.proto$$/.pb.cc/g' ` $(INCCOMM) $(CRESET)
 
 clean:
-	@rm -f $(BINARY)  *.o 
+	rm -f $(BINARY) $(OBJS) 
 
 proto: $(ALLPROTOBUF_H) 
 
@@ -96,3 +98,4 @@ $(BINARY): $(OBJS)
 	@-rm -f $@ 
 	@$(CC) -o $@ $^ -shared -ldl $(C_ARGS) $(LIBCOMM) -Wl,-z,interpose -Wl,-rpath,../bin/lib $(CRESET)
 	@chmod +x $@ 
+	cp -f $(BINARY) $(SO_PATH)

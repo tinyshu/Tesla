@@ -9,6 +9,8 @@
 #include "syncincl.h"
 #include "srpcincl.h"
 #include "service_pMainLogic_impl.hpp"
+#include "globalconfig.h"
+#include "db_connect.h"
 
 using namespace srpc;
 
@@ -34,6 +36,19 @@ extern "C" int spp_handle_init(void* arg1, void* arg2)
             NGLOG_ERROR("service regist failed, ret %d", ret);
             return -1;
         }
+		
+		//读取配置
+		const char * filepath = (const char *)arg1;
+		if (!GCONF->InitConfig(filepath))
+		{
+			
+            NGLOG_ERROR("service config init failed ");
+			return -2;
+		}
+		
+		//初始化DB
+        CDBConnect::GetInstance()->InitDB(GCONF->DBConnectInfo);
+		
     }
 
     // TODO: 业务初始化

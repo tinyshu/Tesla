@@ -8,10 +8,11 @@
 #include "p2p_cpp.crawl.v1.idl.pb.h"
 #include "sppincl.h"
 #include "srpcincl.h"
-
-//#include "../include/mysqlclient/mysql.h"
-
 #include "mysql.h"
+
+#include "CDBUser.h"
+#include "db_inf.h"
+#include "globalconfig.h"
 
 extern "C"
 {
@@ -24,8 +25,43 @@ struct routeid {
 int32_t getroutebyname(const char *name, struct routeid *);
 
 };
+
+//可以把这些封装在一个统一的文件
+void QueryOrder(bool& bExists)
+{   
+    CUser userdata;
+	userdata.m_FID = "439006199008081512";
+    CStr2Map mapFields;
+    userdata.getAllFieldName(mapFields);
+	
+	 //设置查询条件
+    CStr2Map KeyData;
+    //addFieldToMap(USERDB_FID, userdata.m_FID, KeyData);
+	KeyData[USERDB_FID] = userdata.m_FID;
+	
+	CDbInfCfg dbMasterCfg(DB_MASTER, DBCFG_USER_BY_NONE, "");
+	
+	 //数据查询
+    CStr2Map orderData;
+
+    ::queryOrder(dbMasterCfg, mapFields, KeyData, orderData, bExists);
+    if (bExists)
+    {
+       userdata.retriveFromStr2Map(orderData);
+    }
+	
+	//test
+    if (!bExists)
+	{
+	   NGLOG_INFO("user not found");
+	}
+	
+	NGLOG_INFO("FID:%s FName:%s",userdata.m_FID.c_str(),userdata.m_FName.c_str());
+}
+
 static void AccessMysql(::crawl::GetMP3ListResponse  & resp)
 {
+/*
 	if (resp.mp3s_size() < 1)
 	{
 		return;
@@ -114,8 +150,11 @@ static void AccessMysql(::crawl::GetMP3ListResponse  & resp)
 	}
 	mysql_stmt_close(stmt);
 	mysql_close(my);
-
-
+*/
+    //test的代码 读取user表里一行数据
+	bool bExists;
+	QueryOrder(bExists);
+	
 }
 
 
@@ -158,7 +197,7 @@ int CMainLogicServiceMsg::GetTitles(const GetTitlesRequest* request, GetTitlesRe
 	NGLOG_INFO("crawl.CrawlService.GetMP3List communicates success\n");
 	if (resp.status() != 0)
 	{
-    		NGLOG_ERROR("GetMP3List failed:%d, %s\n", resp.status(), resp.msg().c_str());
+       NGLOG_ERROR("GetMP3List failed:%d, %s\n", resp.status(), resp.msg().c_str());
 		ATTR_REPORT("GetTitles_EXIT_FAIL");
 		response->set_status(100);
 		response->set_msg("GetMP3List() failed!");
