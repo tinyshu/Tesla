@@ -14,6 +14,7 @@ BINARY = ../bin/Tesla.so
 ### rules
 ALLPROTOBUF=$(wildcard ./protocal/*.proto)
 ALLPROTOBUF_H=$(patsubst %.proto,%.pb.h,$(ALLPROTOBUF))
+ALLPROTOBUF_OBJ:= $(patsubst %.cc,%.o,$(wildcard ./protocal/*.cc))
 #ALLPROTOBUF_OBJ=$(patsubst %.proto,%.pb.o,$(ALLPROTOBUF))
 
 
@@ -24,8 +25,9 @@ DIRS := $(filter-out $(EXCLUDE_DIRS),$(DIRS))
 
 INCCOMM += $(foreach it, $(DIRS), -I./$(it))
 SRCS := $(foreach it,$(DIRS),$(wildcard $(it)/*.cpp)) 
-SRCS += $(foreach it,$(DIRS),$(wildcard $(it)/*.cc)) 
-OBJS =$(patsubst %.cpp,%.o,$(SRCS)) 
+OBJS =$(patsubst %.cpp,%.o,$(SRCS)) $(ALLPROTOBUF_OBJ) 
+#SRCS := $(foreach it,$(DIRS),$(wildcard $(it)/*.cc)) 
+#OBJS +=$(patsubst %.cc,%.o,$(SRCS)) 
 
 # Comment the following line if you are not using the gnu c compiler
 C_ARGS = -Wall -g -fPIC -rdynamic
@@ -85,6 +87,7 @@ CRESET =  ;echo -ne \\e[m; test -s $@
 	@$(CC) $(C_ARGS) -c -o $@ ` echo $< | sed 's/.proto$$/.pb.cc/g' ` $(INCCOMM) $(CRESET)
 
 clean:
+	#@echo "obj: $(OBJS) pb: $(ALLPROTOBUF) pbh: $(ALLPROTOBUF_H) pbobj: $(ALLPROTOBUF_OBJ)"
 	rm -f $(BINARY) $(OBJS) 
 
 proto: $(ALLPROTOBUF_H) 
