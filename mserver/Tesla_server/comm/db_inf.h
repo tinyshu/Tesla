@@ -7,19 +7,19 @@
 
 /////////////////////////////////////////////////////////////////
 //库表名字映射规则
-const string user_db_head = "vcoin_db";
-const string user_db_table_head = ".t_user_";
+const string user_db_head = "msec_test_db";
+const string user_db_table_head = ".RoleData";
 
-const string order_db_head = "vcoin_order_db_";
-const string order_db_table_head = ".t_order_";
+const string order_db_head = "msec_test_db";
+const string order_db_table_head = ".PayOrder";
 
 //tesla的添加在下面
 //用户表
-const string tesla_user_db_head = "tesl_user_db";
-const string tesla_user_db_table_head = ".t_user";
+const string tesla_user_db_head = "msec_test_db";
+const string tesla_user_db_table_head = ".RoleData";
 
-const string tesla_order_db_match_head = "tesl_match_db";
-const string tesla_order_match_table_head = "tesl_match_db";
+const string tesla_order_db_match_head = "msec_test_db";
+const string tesla_order_match_table_head = ".MatchOrder";
 
 /////////////////////////////////////////////////////////////////
 
