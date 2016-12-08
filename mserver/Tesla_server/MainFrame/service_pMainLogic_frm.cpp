@@ -11,6 +11,7 @@
 #include "service_pMainLogic_impl.hpp"
 #include "globalconfig.h"
 #include "db_connect.h"
+#include "timestamp.h"
 
 using namespace srpc;
 #define CONF_PATH "../etc/config.ini"
@@ -222,12 +223,12 @@ extern "C" void spp_handle_fini(void* arg1, void* arg2)
 extern "C" void spp_handle_loop(void * arg)
 {
 #define GROUP_ID_TIMER 1
-	if(GROUP_ID_TIMER == g_spp_groupid)
+	//if(GROUP_ID_TIMER == g_spp_groupid)
 	{
 		//定时器的worker组中
 
 		static uint32_t uint32LastTime = 0; 
-		uint32_t uiCurTime = __spp_get_now_ms();   
+		uint32_t uiCurTime = time(NULL);   
 
 		if(0 == uint32LastTime)     
 		{            
@@ -235,7 +236,7 @@ extern "C" void spp_handle_loop(void * arg)
 		}     
 		else
 		{    
-			if((uiCurTime - uint32LastTime) > 1000)
+			if((uiCurTime - uint32LastTime) > 5)
 			{  
 				NGLOG_INFO("%s: %d %d", __FUNCTION__,uiCurTime,uint32LastTime);                       
 				uint32LastTime = 0;       
