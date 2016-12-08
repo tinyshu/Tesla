@@ -219,4 +219,27 @@ extern "C" void spp_handle_fini(void* arg1, void* arg2)
     }
 }
 
+extern "C" void spp_handle_loop(void * arg)
+{
+#define GROUP_ID_TIMER 1
+	if(GROUP_ID_TIMER == g_spp_groupid)
+	{
+		//定时器的worker组中
 
+		static uint32_t uint32LastTime = 0; 
+		uint32_t uiCurTime = __spp_get_now_ms();   
+
+		if(0 == uint32LastTime)     
+		{            
+			uint32LastTime = uiCurTime;   
+		}     
+		else
+		{    
+			if((uiCurTime - uint32LastTime) > 1000)
+			{  
+				NGLOG_INFO("%s: %d %d", __FUNCTION__,uiCurTime,uint32LastTime);                       
+				uint32LastTime = 0;       
+			}     
+		}             
+	}
+}
