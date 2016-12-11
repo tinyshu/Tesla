@@ -18,15 +18,17 @@
 
 #ifndef  MATCHLOGIC_INC
 #define  MATCHLOGIC_INC
+#include "matchdata.h"
 
 class Cmatchlogic
 {
 public:
 	Cmatchlogic(){}
 	~Cmatchlogic(){}
-	int startmatch();
+	int startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata);
+	int sortpayorder(vmatchdata& rvmatchdata);	
+	int sortgetorder(vmatchdata& rvmatchdata);	
 private:
-	
 
 };
 #endif   /* ----- #ifndef MATCHLOGIC_INC  ----- */

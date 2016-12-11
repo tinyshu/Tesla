@@ -20,27 +20,31 @@
 #define  MATCHDATA_INC
 #include <stdint.h>
 #include <vector>
+#include <string>
 
 struct childorder
 {
-	uint32_t uPairOrderID;
+	std::string strPairOrderID;
 	int iMatchMoney;
 };
 
 struct matchdata
 {
-	uint32_t uOrderID;
+	std::string strOrderID;
 	uint8_t bVipLevel;
 	int iMoney;
+	int iTime;
 	std::vector<childorder> vChildOrer;
 
 	matchdata()
 	{
-		uOrderID = 0;
+		strOrderID = "";
 		bVipLevel = 0;
 		iMoney = 0;
+		iTime = 0;
+		//vChildOrer.clear();
 	}
 };
-
+typedef std::vector<matchdata> vmatchdata;
 #endif   /* ----- #ifndef MATCHDATA_INC  ----- */
 

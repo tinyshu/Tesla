@@ -19,6 +19,7 @@
 #ifndef  MATCHMGR_INC
 #define  MATCHMGR_INC
 #include "matchdata.h"
+#include "matchlogic.h"
 
 class Cmatchmgr
 {
@@ -26,8 +27,11 @@ public:
 	Cmatchmgr(){}
 	~Cmatchmgr(){}
 	int loadmatchdata();
+	int dumpmatchdata(vmatchdata& vdata);
 private:
-	matchdata m_stmatchdata;
+	vmatchdata  m_vpayorder;
+	vmatchdata  m_vgetorder;
+	Cmatchlogic m_matchlogic;
 };
 
 #endif   /* ----- #ifndef MATCHMGR_INC  ----- */
