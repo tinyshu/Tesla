@@ -1,33 +1,26 @@
 /*
  * =====================================================================================
- * 
- *       Filename:  matchlogic.h
- * 
+ *
+ *       Filename:  matchmgr.cpp
+ *
  *    Description:  
- * 
+ *
  *        Version:  1.0
- *        Created:  12/10/16 18:59:15 CST
+ *        Created:  12/11/16 12:41:49 CST
  *       Revision:  none
  *       Compiler:  gcc
- * 
+ *
  *         Author:  loganwu (linux), wuxiaolong63@gmail.com
  *        Company:  makedream
- * 
+ *
  * =====================================================================================
  */
 
-#ifndef  MATCHLOGIC_INC
-#define  MATCHLOGIC_INC
+#include "matchmgr.h"
 
-class Cmatchlogic
+
+int Cmatchmgr::loadmatchdata()
 {
-public:
-	Cmatchlogic(){}
-	~Cmatchlogic(){}
-	int startmatch();
-private:
-	
+	return 0;
 
-};
-#endif   /* ----- #ifndef MATCHLOGIC_INC  ----- */
-
+}

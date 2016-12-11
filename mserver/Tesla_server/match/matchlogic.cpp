@@ -17,3 +17,9 @@
  */
 
 #include "matchlogic.h"
+
+int Cmatchlogic::startmatch()
+{
+
+	return 0;
+}

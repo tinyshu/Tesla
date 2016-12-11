@@ -1,12 +1,12 @@
 /*
  * =====================================================================================
  * 
- *       Filename:  matchlogic.h
+ *       Filename:  matchmgr.h
  * 
  *    Description:  
  * 
  *        Version:  1.0
- *        Created:  12/10/16 18:59:15 CST
+ *        Created:  12/11/16 12:41:44 CST
  *       Revision:  none
  *       Compiler:  gcc
  * 
@@ -16,18 +16,19 @@
  * =====================================================================================
  */
 
-#ifndef  MATCHLOGIC_INC
-#define  MATCHLOGIC_INC
+#ifndef  MATCHMGR_INC
+#define  MATCHMGR_INC
+#include "matchdata.h"
 
-class Cmatchlogic
+class Cmatchmgr
 {
 public:
-	Cmatchlogic(){}
-	~Cmatchlogic(){}
-	int startmatch();
+	Cmatchmgr(){}
+	~Cmatchmgr(){}
+	int loadmatchdata();
 private:
-	
-
+	matchdata m_stmatchdata;
 };
-#endif   /* ----- #ifndef MATCHLOGIC_INC  ----- */
+
+#endif   /* ----- #ifndef MATCHMGR_INC  ----- */
 
