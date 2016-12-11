@@ -29,40 +29,56 @@ private:
     MYSQL_RES* m_pRes;
 };
 
+/*
 CDbInfCfg::CDbInfCfg(DB_TYPE eDbType, QCBC_DBCFG_TYPE eDbCfgType,const string& rule)
 {
-    int iUnit = 0;
-    m_DBtype = eDbCfgType;
+
+}
+*/
+
+CDbInfCfg::~CDbInfCfg()
+{
+	if (NULL == pMySQL)
+	{
+	   CDBConnect::GetInstance()->FreeSqlConn(pMySQL);	
+	}
+}
+
+void CDbInfCfg::getTableAndConn(DB_TYPE eDbType, QCBC_DBCFG_TYPE eDbCfgType, const string& rule)
+{
+	m_DBtype = eDbCfgType;
     //获取库表名
-    switch (eDbCfgType)
+    
+	switch (eDbCfgType)
     {
     case DBCFG_USER_BY_NONE:
     {
 							  //user库表使用的单库单表，并且在一台Db上
 							  sTableName = tesla_user_db_head + tesla_user_db_table_head;
-							  pMySQL =  CDBConnect::GetInstance()->getConnBy();
+							 
     }break;
 
     case DBCFG_ORDER_MATCH_BY_TIME:
     {
                              
                                sTableName = getMatchOrderByTime(rule);
-							   pMySQL =  CDBConnect::GetInstance()->getConnBy();
+							  
                             
     }break;
 
     }
     
-    if (pMySQL == NULL)
+	if (NULL == pMySQL)
+    {
+        pMySQL = CDBConnect::GetInstance()->getConnBy();
+    }
+	
+    if (NULL == pMySQL)
     {
 
         throw CException(ERR_UNKNOWN_EXCP, "mysql connect null", __FILE__, __LINE__);
     }
-
-   // SPP_ERROR_LOG(GCONF->pbase, " sTableName:%s,iUnit:%d", sTableName.c_str(), iUnit);
 }
-
-
 
 CMySQL* CDbInfCfg::getMySql()
 {

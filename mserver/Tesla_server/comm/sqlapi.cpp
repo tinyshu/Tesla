@@ -4,7 +4,7 @@
 #include "sqlapi.h"
 
 
-
+  
 /**
  * Description: 构造函数
  * Input:         host         数据库主机IP地址

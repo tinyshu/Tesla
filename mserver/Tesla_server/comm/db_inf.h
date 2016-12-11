@@ -48,13 +48,17 @@ public:
 	/*
 	
 	*/
-    CDbInfCfg(DB_TYPE eDbType,QCBC_DBCFG_TYPE eDbCfgType,const string& rule);
-    
-    ~CDbInfCfg()
-    {}
+    //CDbInfCfg(DB_TYPE eDbType,QCBC_DBCFG_TYPE eDbCfgType,const string& rule);
+    CDbInfCfg(){};
+    ~CDbInfCfg();
 
     CMySQL* getMySql();
-
+    
+	 /*
+      CDbInfCfg 在一个微线程里连接是不能变，访问的表名可以变
+    */
+    void getTableAndConn(DB_TYPE eDbType, QCBC_DBCFG_TYPE eDbCfgType, const string& rule);
+	
 protected:
  
     //string getUserByUinTableName(int iUnit);

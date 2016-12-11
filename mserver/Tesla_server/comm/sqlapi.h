@@ -6,8 +6,6 @@
 #ifndef _SQL_API_H_
 #define _SQL_API_H_
 
-//#include "../include/mysqlclient/mysql.h"
-//#include "../include/mysqlclient/mysqld_error.h"
 #include "mysql.h"
 #include "mysqld_error.h"
 #include "errmsg.h" 
@@ -93,10 +91,19 @@ public:
      */
     void SetAvgConsume(int consume){ m_avgConsume = consume * 1000; };
     
-  static int GetDBAndTableMd5(const char* szStr, int& iDbNum, int &iTbNum);
+    static int GetDBAndTableMd5(const char* szStr, int& iDbNum, int &iTbNum);
 
     static int GetDBAndTable(const char* szStr, int& iDbNum, int &iTbNum);
-
+    
+	long getActiveTime()
+	{
+		return m_activetime;
+	}
+	
+	void setActiveTime(long activetime)
+	{
+		m_activetime = activetime;
+	}
 private:
     // 禁止拷贝和赋值操作
     CMySQL(const CMySQL& ref);
@@ -114,6 +121,7 @@ protected:
 	unsigned int m_iRWOverTime;    // 读写超时时长
     int         m_avgConsume;   // 平均访问时间, 单位是微秒
     
+	long  m_activetime;  //分配的时间 
 };
 
 #endif

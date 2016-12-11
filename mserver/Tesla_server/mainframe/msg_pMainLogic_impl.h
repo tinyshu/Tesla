@@ -8,6 +8,7 @@
 #include "syncincl.h"
 #include "srpcincl.h"
 #include "v2.pb.h"
+#include "db_inf.h"
 
 using namespace pMainLogic;
 
@@ -53,7 +54,9 @@ public:
      * @return 框架会将返回值作为执行结果传给客户端
      */
     virtual int DownloadMP3(const DownloadMP3Request* request, DownloadMP3Response* response);
-
+     
+	//
+	CDbInfCfg m_dbMasterCfg;
 };
 
 

@@ -7,7 +7,6 @@
 #include "msg_pMainLogic_impl.h"
 #include "p2p_cpp.crawl.v1.idl.pb.h"
 #include "sppincl.h"
-#include "srpcincl.h"
 #include "mysql.h"
 
 #include "CDBUser.h"
@@ -41,8 +40,15 @@ void QueryOrder(bool& bExists)
     //addFieldToMap(USERDB_FID, userdata.m_FID, KeyData);
 	KeyData[USERDB_FID] = userdata.m_FID;
 	
-	CDbInfCfg dbMasterCfg(DB_MASTER, DBCFG_USER_BY_NONE, "");
+	//CDbInfCfg dbMasterCfg(DB_MASTER, DBCFG_USER_BY_NONE, "");
+	m_dbMasterCfg.getTableAndConn(DB_MASTER, DBCFG_USER_BY_NONE, "");
 	
+	//
+	if(NULL == m_dbMasterCfg.getMySql())
+	{
+		//log
+        throw CException(ERR_UNKNOWN_EXCP, "get_mysql_null", __FILE__, __LINE__);
+	}
 	 //数据查询
     CStr2Map orderData;
 

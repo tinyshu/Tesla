@@ -42,6 +42,11 @@ public:
         int acc_write_cmdid;
 
         int Package_timeOut; 
+		
+		int db_check_time;  //db连接检测间隔
+        int db_max_conn;    //最大连接数
+		int db_active_time;
+        
 
     }ServerConf;
 
