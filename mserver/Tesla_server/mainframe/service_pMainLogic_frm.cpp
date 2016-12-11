@@ -135,7 +135,10 @@ extern "C" int spp_handle_process(unsigned flow, void* arg1, void* arg2)
                 flow,
                 blob->len,
                 inet_ntoa(*(struct in_addr*)&extinfo->remoteip_));
-
+    
+	//检查非活动db连接，然后回收
+	CDBConnect::GetInstance()->CheckSqlConn();
+	
     // 1. 解析消息头信息
     CRpcHead  rpc_head;
     int32_t ret = SrpcUnpackPkgHead((char*)blob->data, blob->len, &rpc_head);

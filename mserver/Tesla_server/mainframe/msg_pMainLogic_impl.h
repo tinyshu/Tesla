@@ -55,7 +55,8 @@ public:
      */
     virtual int DownloadMP3(const DownloadMP3Request* request, DownloadMP3Response* response);
      
-	//
+	//到时候包这些公共对象和函数放在公共基类里面实现
+	void QueryOrder(bool& bExists);
 	CDbInfCfg m_dbMasterCfg;
 };
 
