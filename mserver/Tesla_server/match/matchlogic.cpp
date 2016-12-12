@@ -24,6 +24,8 @@ bool payorderpriority(matchdata ldata, matchdata rdata)
 {
 	if(ldata.bVipLevel > rdata.bVipLevel) //大师优先
 		return true;
+	else if(ldata.bVipLevel < rdata.bVipLevel)
+		return false;
 	else if(ldata.iTime < rdata.iTime) // 时间先后
 		return true;
 	
@@ -34,6 +36,8 @@ bool getorderpriority(matchdata ldata, matchdata rdata)
 {
 	if(ldata.iTime < rdata.iTime) //时间先后
 		return true;
+	else if(ldata.iTime >  rdata.iTime) //时间先后
+		return false;
 	else if(ldata.bVipLevel < rdata.bVipLevel) //初级优先
 		return true;
 	

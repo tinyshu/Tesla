@@ -14,6 +14,7 @@
 #include "db_inf.h"
 #include "globalconfig.h"
 #include "db_inf.h"
+#include "matchmgr.h"
 /*
 extern "C"
 {
@@ -193,8 +194,8 @@ int CMainLogicServiceMsg::GetTitles(const GetTitlesRequest* request, GetTitlesRe
 
 	req.set_type(request->type());
 
+	/*
 	int ret = CallMethod("p2p_cpp.crawl", "crawl.CrawlService.GetMP3List", req, resp, 20000);
-	//int ret = CallMethod("VOA_java.Crawl", "crawl.CrawlService.getMP3List", req, resp, 20000);
 	if (ret != SRPC_SUCCESS)
 	{
     		NGLOG_ERROR("call method failed:%d\n", ret);
@@ -213,7 +214,7 @@ int CMainLogicServiceMsg::GetTitles(const GetTitlesRequest* request, GetTitlesRe
 		return 0;
 	}
 	NGLOG_DEBUG("crawl.CrawlService.GetMP3List success, mp3 number:%d\n", resp.mp3s_size());
-
+	*/
 	int i;
 	for (i = 0; i < resp.mp3s_size(); ++i)
 	{
@@ -226,6 +227,16 @@ int CMainLogicServiceMsg::GetTitles(const GetTitlesRequest* request, GetTitlesRe
 	bool bExists;
 	QueryOrder(bExists);
 	
+	//test match 
+	Cmatchmgr* pCmatchmgr = new Cmatchmgr;
+	if(NULL == pCmatchmgr)
+	{
+		NGLOG_ERROR("%s: out of memory",__FUNCTION__);
+		return -1;
+	}
+	pCmatchmgr->loadmatchdata();
+
+	delete pCmatchmgr;
 	
 	NGLOG_INFO("GetTitles success");
 	ATTR_REPORT("GetTitles_EXIT_SUC");

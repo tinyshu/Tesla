@@ -239,7 +239,7 @@ extern "C" void spp_handle_loop(void * arg)
 		}     
 		else
 		{    
-			if((uiCurTime - uint32LastTime) > 5)
+			if((uiCurTime - uint32LastTime) > 60)
 			{  
 				NGLOG_INFO("%s: %d %d", __FUNCTION__,uiCurTime,uint32LastTime);                       
 				uint32LastTime = 0;       
