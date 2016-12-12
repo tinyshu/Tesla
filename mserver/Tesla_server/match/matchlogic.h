@@ -28,7 +28,9 @@ public:
 	int startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata);
 	int sortpayorder(vmatchdata& rvmatchdata);	
 	int sortgetorder(vmatchdata& rvmatchdata);	
+	int createbill(const matchdata& stmatchdata);
 private:
+	int createchildorder(matchdata& ldata, matchdata& rdata,int iMatchMoney);
 
 };
 #endif   /* ----- #ifndef MATCHLOGIC_INC  ----- */
