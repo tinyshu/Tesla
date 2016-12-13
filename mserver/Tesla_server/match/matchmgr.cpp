@@ -81,10 +81,15 @@ int Cmatchmgr::dumpmatchdata(vmatchdata& vdata)
 }
  int Cmatchmgr::startmatch()
 {
-	int iRet = m_matchlogic.startmatch(m_vgetorder,m_vpayorder,m_vbilldata);
+	int iRet = m_matchlogic.startmatch(m_vgetorder,m_vpayorder);
 	NGLOG_INFO("%s: After match ret %d",__FUNCTION__,iRet);
 	dumpmatchdata(m_vpayorder);
 	dumpmatchdata(m_vgetorder);
+	if(0 != iRet)
+	{
+		//TODO
+	}
+	iRet = m_matchlogic.createbill(m_vgetorder,m_vbilldata);
 
 	return iRet;
 }

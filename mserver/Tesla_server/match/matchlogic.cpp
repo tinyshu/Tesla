@@ -19,6 +19,7 @@
 #include "matchlogic.h"
 #include "srpcincl.h"
 #include <algorithm>
+#include <sstream>
 
 bool payorderpriority(matchdata ldata, matchdata rdata)
 {
@@ -70,7 +71,7 @@ class vector_finder_greater
 };
 
 //遍历left,在right中寻找匹配对象
-int Cmatchlogic::startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata, vbilldata& rvbilldata)
+int Cmatchlogic::startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata)
 {
 	for(vmatchdata::iterator it = vLmatchdata.begin(); it != vLmatchdata.end();)
 	{
@@ -130,8 +131,26 @@ int Cmatchlogic::createchildorder(matchdata& ldata, matchdata& rdata,int iMatchM
 	return 0;
 }
 
-int Cmatchlogic::createbill(const matchdata& stmatchdata)
+int Cmatchlogic::createbill(vmatchdata& rvmatchdata, vbilldata& rvbilldata)
 {
+	for(vmatchdata::iterator it = rvmatchdata.begin(); it != rvmatchdata.end();++it)
+	{
+		for(std::vector<childorder>::iterator itchild = it->vChildOrer.begin(); itchild != it->vChildOrer.end();++itchild)
+		{
+			//M(1)+(保留)10+setID(2)+time(11)+sequence(8)
+			int iSeq = 0;
+			int iTime = time(NULL);
+			stringstream strStream;
+			strStream<<"M012345678900"<<iTime<<iSeq++;
+			billdata stbilldata;
+			stbilldata.strBillID= strStream.str();
+			stbilldata.strPayID = itchild->strPairOrderID;
+			stbilldata.strGetID = it->strOrderID;
+			stbilldata.iTime = time(NULL);
+			stbilldata.iMatchMoney = itchild->iMatchMoney;
+			rvbilldata.push_back(stbilldata);
+		}
+	}
 
 	return 0;
 }

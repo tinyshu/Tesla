@@ -25,10 +25,10 @@ class Cmatchlogic
 public:
 	Cmatchlogic(){}
 	~Cmatchlogic(){}
-	int startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata, vbilldata& rvbilldata);
+	int startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata );
 	int sortpayorder(vmatchdata& rvmatchdata);	
 	int sortgetorder(vmatchdata& rvmatchdata);	
-	int createbill(const matchdata& stmatchdata);
+	int createbill(vmatchdata& rvmatchdata,vbilldata& rvbilldata );
 private:
 	int createchildorder(matchdata& ldata, matchdata& rdata,int iMatchMoney);
 
