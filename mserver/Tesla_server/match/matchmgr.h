@@ -29,6 +29,7 @@ public:
 	int loadmatchdata();
 	int dumpmatchdata(vmatchdata& vdata);
 	int startmatch();
+	int dumpbilldata(vbilldata& vdata);
 private:
 	vmatchdata  m_vpayorder;
 	vmatchdata  m_vgetorder;

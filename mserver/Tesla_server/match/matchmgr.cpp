@@ -90,6 +90,20 @@ int Cmatchmgr::dumpmatchdata(vmatchdata& vdata)
 		//TODO
 	}
 	iRet = m_matchlogic.createbill(m_vgetorder,m_vbilldata);
+	
+	iRet = dumpbilldata(m_vbilldata);
 
 	return iRet;
 }
+
+int Cmatchmgr::dumpbilldata(vbilldata& vdata)
+{
+	for(vbilldata::iterator it = vdata.begin(); it != vdata.end();++it)
+	{
+		NGLOG_INFO("%s: orderID: %s vip %d time %d money %d",__FUNCTION__,
+				it->strBillID.c_str(),it->strPayID.c_str(),it->strGetID.c_str(),it->iTime,it->iMatchMoney);
+
+	}
+	return 0;
+}
+	
