@@ -43,7 +43,7 @@ extern "C" int spp_handle_init(void* arg1, void* arg2)
 		if (!GCONF->InitConfig(CONF_PATH))
 		{
 			
-            		NGLOG_ERROR("service config init failed file:%s",CONF_PATH);
+            NGLOG_ERROR("service config init failed file:%s",CONF_PATH);
 			return -2;
 		}
 		

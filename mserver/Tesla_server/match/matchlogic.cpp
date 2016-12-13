@@ -19,7 +19,7 @@
 #include "matchlogic.h"
 #include "srpcincl.h"
 #include <algorithm>
-#include <sstream>
+#include <stdio.h>
 
 bool payorderpriority(matchdata ldata, matchdata rdata)
 {
@@ -140,13 +140,15 @@ int Cmatchlogic::createbill(vmatchdata& rvmatchdata, vbilldata& rvbilldata)
 		{
 			//M(1)+(保留)10+setID(2)+time(11)+sequence(8)
 			int iTime = time(NULL);
-			stringstream strStream;
-			strStream<<"M012345678900"<<iTime<<iSeq++;
+			char cBillId[33];
+			snprintf(cBillId,33,"M012345678900%011d%08d",iTime,iSeq++);
+			//stringstream strStream;
+			//strStream<<"M012345678900"<<iTime<<iSeq++;
 			billdata stbilldata;
-			stbilldata.strBillID= strStream.str();
+			stbilldata.strBillID= cBillId;
 			stbilldata.strPayID = itchild->strPairOrderID;
 			stbilldata.strGetID = it->strOrderID;
-			stbilldata.iTime = time(NULL);
+			stbilldata.iTime = iTime;
 			stbilldata.iMatchMoney = itchild->iMatchMoney;
 			rvbilldata.push_back(stbilldata);
 		}
