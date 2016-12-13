@@ -25,7 +25,7 @@ class Cmatchlogic
 public:
 	Cmatchlogic(){}
 	~Cmatchlogic(){}
-	int startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata);
+	int startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata, vbilldata& rvbilldata);
 	int sortpayorder(vmatchdata& rvmatchdata);	
 	int sortgetorder(vmatchdata& rvmatchdata);	
 	int createbill(const matchdata& stmatchdata);

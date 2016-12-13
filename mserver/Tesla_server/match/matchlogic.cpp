@@ -70,7 +70,7 @@ class vector_finder_greater
 };
 
 //遍历left,在right中寻找匹配对象
-int Cmatchlogic::startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata)
+int Cmatchlogic::startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata, vbilldata& rvbilldata)
 {
 	for(vmatchdata::iterator it = vLmatchdata.begin(); it != vLmatchdata.end();)
 	{
@@ -83,6 +83,7 @@ int Cmatchlogic::startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata)
 			if(itfind == vRmatchdata.end())//所有Pay订单都匹配完成，Get订单还剩余
 			{
 				//ALARM TODO
+				ATTR_REPORT("Match_failed_lackofmoney");
 				NGLOG_ERROR("%s: match failed: lorderID %s money %d ",__FUNCTION__,ldata.strOrderID.c_str(),ldata.iMoney);
 				return -1;
 			}
@@ -91,11 +92,12 @@ int Cmatchlogic::startmatch(vmatchdata& vLmatchdata, vmatchdata& vRmatchdata)
 		matchdata& rdata = *itfind;
 		int iMatchMoney = (ldata.iMoney>rdata.iMoney)?rdata.iMoney : ldata.iMoney;
 		NGLOG_INFO("%s: match one: lorderID %s rorderID %s money %d ",__FUNCTION__,ldata.strOrderID.c_str(),rdata.strOrderID.c_str(),iMatchMoney);
-		createchildorder(ldata,rdata,iMatchMoney);
 		if(ldata.iMoney <= iMatchMoney) //这个GET单已经匹配完全
 		{
 			++it;
+			//NGLOG_INFO("%s: next item  lorderID %s ",__FUNCTION__,it->strOrderID.c_str());
 		}
+		createchildorder(ldata,rdata,iMatchMoney);
 
 	}
 	return 0;

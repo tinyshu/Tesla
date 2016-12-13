@@ -28,9 +28,11 @@ public:
 	~Cmatchmgr(){}
 	int loadmatchdata();
 	int dumpmatchdata(vmatchdata& vdata);
+	int startmatch();
 private:
 	vmatchdata  m_vpayorder;
 	vmatchdata  m_vgetorder;
+	vbilldata m_vbilldata;
 	Cmatchlogic m_matchlogic;
 };
 

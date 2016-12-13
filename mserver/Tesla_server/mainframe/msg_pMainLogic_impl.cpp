@@ -228,6 +228,7 @@ int CMainLogicServiceMsg::GetTitles(const GetTitlesRequest* request, GetTitlesRe
 	QueryOrder(bExists);
 	
 	//test match 
+#if 1
 	Cmatchmgr* pCmatchmgr = new Cmatchmgr;
 	if(NULL == pCmatchmgr)
 	{
@@ -235,8 +236,9 @@ int CMainLogicServiceMsg::GetTitles(const GetTitlesRequest* request, GetTitlesRe
 		return -1;
 	}
 	pCmatchmgr->loadmatchdata();
-
+	pCmatchmgr->startmatch();
 	delete pCmatchmgr;
+#endif
 	
 	NGLOG_INFO("GetTitles success");
 	ATTR_REPORT("GetTitles_EXIT_SUC");

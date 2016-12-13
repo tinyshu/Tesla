@@ -22,6 +22,15 @@
 #include <vector>
 #include <string>
 
+struct billdata
+{
+	std::string strBillID;
+	std::string strPayID;
+	std::string strGetID;
+	int iTime; //match time
+	int iMatchMoney;
+};
+
 struct childorder
 {
 	std::string strPairOrderID;
@@ -46,5 +55,6 @@ struct matchdata
 	}
 };
 typedef std::vector<matchdata> vmatchdata;
+typedef std::vector<billdata> vbilldata;
 #endif   /* ----- #ifndef MATCHDATA_INC  ----- */
 

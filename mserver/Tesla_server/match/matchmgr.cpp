@@ -69,6 +69,22 @@ int Cmatchmgr::dumpmatchdata(vmatchdata& vdata)
 	{
 		NGLOG_INFO("%s: orderID: %s vip %d time %d money %d",__FUNCTION__,
 				it->strOrderID.c_str(),it->bVipLevel,it->iTime,it->iMoney);
+		for(std::vector<childorder>::iterator itchild = it->vChildOrer.begin(); itchild != it->vChildOrer.end();++itchild)
+		{
+			//NGLOG_INFO("%s: billID %s payID %s GetID %s  matchtime %d money %d",__FUNCTION__,itchild->strBillID.c_str(),
+			//		itchild->strPayID.c_str(),itchild->strGetID.c_str(),itchild->iTime,itchild->iMatchMoney);
+			NGLOG_INFO("%s: PairorderID: %s matchmoney %d",__FUNCTION__,itchild->strPairOrderID.c_str(),itchild->iMatchMoney);
+		}
+		NGLOG_INFO("%s:**************************************",__FUNCTION__);
 	}
 	return 0;
+}
+ int Cmatchmgr::startmatch()
+{
+	int iRet = m_matchlogic.startmatch(m_vgetorder,m_vpayorder,m_vbilldata);
+	NGLOG_INFO("%s: After match ret %d",__FUNCTION__,iRet);
+	dumpmatchdata(m_vpayorder);
+	dumpmatchdata(m_vgetorder);
+
+	return iRet;
 }
