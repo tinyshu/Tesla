@@ -133,12 +133,12 @@ int Cmatchlogic::createchildorder(matchdata& ldata, matchdata& rdata,int iMatchM
 
 int Cmatchlogic::createbill(vmatchdata& rvmatchdata, vbilldata& rvbilldata)
 {
+	int iSeq = 0;
 	for(vmatchdata::iterator it = rvmatchdata.begin(); it != rvmatchdata.end();++it)
 	{
 		for(std::vector<childorder>::iterator itchild = it->vChildOrer.begin(); itchild != it->vChildOrer.end();++itchild)
 		{
 			//M(1)+(保留)10+setID(2)+time(11)+sequence(8)
-			int iSeq = 0;
 			int iTime = time(NULL);
 			stringstream strStream;
 			strStream<<"M012345678900"<<iTime<<iSeq++;

@@ -100,7 +100,7 @@ int Cmatchmgr::dumpbilldata(vbilldata& vdata)
 {
 	for(vbilldata::iterator it = vdata.begin(); it != vdata.end();++it)
 	{
-		NGLOG_INFO("%s: orderID: %s vip %d time %d money %d",__FUNCTION__,
+		NGLOG_INFO("%s: billid: %s payid %s getid %s time %d money %d",__FUNCTION__,
 				it->strBillID.c_str(),it->strPayID.c_str(),it->strGetID.c_str(),it->iTime,it->iMatchMoney);
 
 	}
