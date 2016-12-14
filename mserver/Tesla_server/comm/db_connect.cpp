@@ -29,7 +29,7 @@ CMySQL* CDBConnect::getConnBy()
    {
 	    //没有可用连接创建一个,就创建一个新连接
 	    //判断是否错过连接最大值
-	    if (conns_count > GCONF->serverconf.db_max_conn)
+	    if (conns_count > GCONF->m_serverconf.db_max_conn)
 		{
 			//log
 			return mysql;
@@ -84,7 +84,7 @@ void CDBConnect::CheckSqlConn()
     long long curTime = time(NULL);
     bool exist = false;
 
-    if (curTime - checktime <= GCONF->serverconf.db_check_time)
+    if (curTime - checktime <= GCONF->m_serverconf.db_check_time)
     {
         return;
     }
@@ -101,7 +101,7 @@ void CDBConnect::CheckSqlConn()
          }
 		 
 		 int timeabs = abs(int(curTime - dbconn->getActiveTime()));
-		 if (timeabs > GCONF->serverconf.db_active_time)
+		 if (timeabs > GCONF->m_serverconf.db_active_time)
 		 {
 			 //atomic_dec(&conns_count);
 			 conns_count--;

@@ -61,9 +61,9 @@ bool GlobalConfig::InitConfig(const char* szFileName)
 	DBConnectInfo.mysql_port = r.port; 
 	NGLOG_INFO("mysql server ip:%s port:%d user %s\n", DBConnectInfo.mysql_vip.c_str(),DBConnectInfo.mysql_port, DBConnectInfo.mysql_user.c_str());
 	//读取系统配置
-	m_serverconf.db_max_conn = obj_conf.GetConfValue<int32_t>("ServerConf", "db_max_conn", "1");
-	m_serverconf.db_active_time = obj_conf.GetConfValue<int32_t>("ServerConf", "db_active_time", "1");
-	m_serverconf.db_check_time = obj_conf.GetConfValue<int32_t>("ServerConf", "db_check_time", "1");
+	m_serverconf.db_max_conn = obj_conf.GetConfValue<int32_t>("ServerConf", "db_max_conn", "300");
+	m_serverconf.db_active_time = obj_conf.GetConfValue<int32_t>("ServerConf", "db_active_time", "10");
+	m_serverconf.db_check_time = obj_conf.GetConfValue<int32_t>("ServerConf", "db_check_time", "30");
 	NGLOG_INFO("svrconf db_max_conn %d db_active_time %d  db_check_time %d",m_serverconf.db_max_conn,m_serverconf.db_active_time,m_serverconf.db_check_time);
 	return true;
 }
