@@ -43,7 +43,7 @@ bool GlobalConfig::InitConfig(const char* szFileName)
     DBConnectInfo.mysql_rwovertime = obj_conf.GetConfValue<int32_t>("dbinfo", "mysql_rwovertime", "1");
 
 	struct routeid r;
-	if (0 != getroutebyname(DBConnectInfo.mysql_name, &r))
+	if (0 != getroutebyname(DBConnectInfo.mysql_name.c_str(), &r))
 	{
 		NGLOG_ERROR("getroutebyname() failed!\n");
 		return false;
@@ -64,7 +64,7 @@ bool GlobalConfig::InitConfig(const char* szFileName)
 	m_serverconf.db_max_conn = obj_conf.GetConfValue<int32_t>("ServerConf", "db_max_conn", "1");
 	m_serverconf.db_active_time = obj_conf.GetConfValue<int32_t>("ServerConf", "db_active_time", "1");
 	m_serverconf.db_check_time = obj_conf.GetConfValue<int32_t>("ServerConf", "db_check_time", "1");
-	NGLOG_INFO("svrconf db_max_conn %d db_active_time %d  db_check_time %d",db_max_conn,db_active_time,db_check_time);
+	NGLOG_INFO("svrconf db_max_conn %d db_active_time %d  db_check_time %d",m_serverconf.db_max_conn,m_serverconf.db_active_time,m_serverconf.db_check_time);
 	return true;
 }
 

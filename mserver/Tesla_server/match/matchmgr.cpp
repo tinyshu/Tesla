@@ -35,7 +35,7 @@ int Cmatchmgr::loadmatchdata()
 		strStream<<"P"<<i;
 		stmatchdata.strOrderID= strStream.str();
 		stmatchdata.bVipLevel = random()%3;
-		stmatchdata.iMoney = 100*(random()%20+1);
+		stmatchdata.iMoney = 100*(random()%8+1);
 		stmatchdata.iTime = random()%100;
 		m_vpayorder.push_back(stmatchdata);
 
