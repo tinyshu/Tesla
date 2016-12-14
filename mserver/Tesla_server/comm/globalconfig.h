@@ -59,6 +59,7 @@ public:
         int mysql_port;
         std::string mysql_user;
         std::string mysql_pswd;
+		std::string mysql_name;
         int  mysql_overtime;
         int  mysql_rwovertime;
        
@@ -102,7 +103,7 @@ public:
     }
 public:
     
-    ServerConf  serverconf;
+    ServerConf  m_serverconf;
    
     //std::vector<MysqlInfo> DBConnectInfo;
     

@@ -1,0 +1,7 @@
+mserver/tesla.opensdf
+*.sdf
+mserver/tesla.sln
+mserver/tesla.suo
+*.vcxproj
+mserver/tesla.vcxproj.filters
+mserver/tesla.vcxproj.user
